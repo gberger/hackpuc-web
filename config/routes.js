@@ -7,8 +7,8 @@ var alerts = require('../app/controllers/alerts');
 module.exports = function (app) {
 
   app.post('/alerts', alerts.create);
-  app.get('/alerts/:id', alerts.view);
-  app.post('/alerts/:id/fire', alerts.fire);
+  app.get('/alerts/:id', alerts.loadAlert, alerts.view);
+  app.post('/alerts/:id/fire', alerts.loadAlert, alerts.fire);
 
 
   /**
