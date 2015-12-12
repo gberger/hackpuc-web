@@ -11,14 +11,11 @@ var Schema = mongoose.Schema;
  */
 
 var AlertSchema = new Schema({
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
+  name: { type: String, required: true },
   contacts: [
     {
       name: { type: String, default: '' },
-      number: { type: String, default: '' }
+      number: { type: String, required: true }
     }
   ],
   message: { type: String, default: 'I need help!' }
