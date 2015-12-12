@@ -99,6 +99,7 @@ exports.updateStatus = function(req, res, next) {
     if (err) {
       return res.sendStatus(500)
     }
+    req.io.in(firing._id).emit('status', status);
     return res.sendStatus(200);
   });
 };

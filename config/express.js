@@ -1,7 +1,4 @@
-
-/**
- * Module dependencies.
- */
+'use strict';
 
 var express = require('express');
 var session = require('express-session');
@@ -20,7 +17,12 @@ var env = process.env.NODE_ENV || 'development';
  * Expose
  */
 
-module.exports = function (app) {
+module.exports = function (app, io) {
+
+  app.use(function(req, res, next) {
+    req.io = io;
+    next();
+  });
 
   // Compression middleware (should be placed before express.static)
   app.use(compression({
