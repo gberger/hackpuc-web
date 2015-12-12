@@ -4,9 +4,15 @@ block main
 
   script.
     trackingId="#{trackingId}";
+    apiKey="#{process.env.OPENTOK_KEY}"
+    sessionId="#{openTok.sessionId}";
+    token="#{openTok.token}";
 
   #map
+  #tok
 
 block scripts
   script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxgWt8pEgJ-Eiwj0_PnYEOngQstCMHr9E")
+  script(src="https://static.opentok.com/v2/js/opentok.min.js")
+  script(src="/socket.io/socket.io.js")
   script(src="/js/t.js")

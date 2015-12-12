@@ -17,12 +17,15 @@ var env = process.env.NODE_ENV || 'development';
  * Expose
  */
 
-module.exports = function (app, io) {
+module.exports = function (app, extras) {
 
   app.use(function(req, res, next) {
-    req.io = io;
+    req.io = extras.io;
+    req.openTok = extras.openTok;
     next();
   });
+
+
 
   // Compression middleware (should be placed before express.static)
   app.use(compression({

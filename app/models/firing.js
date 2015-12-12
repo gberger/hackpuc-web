@@ -14,7 +14,8 @@ var FiringSchema = new Schema({
   timestamp: {
     type: Date,
     default: Date.now
-  }
+  },
+  openTokSessionId: { type: String }
 });
 
 

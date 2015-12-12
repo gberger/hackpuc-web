@@ -14,9 +14,5 @@ module.exports = {
       'user_about_me',
       'user_friends'
     ]
-  },
-  twilio: {
-    sid: process.env.TWILIO_SID,
-    secret: process.env.TWILIO_SECRET
   }
 };

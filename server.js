@@ -13,6 +13,9 @@ var server = http.Server(app);
 var io = socket.listen(server);
 var port = process.env.PORT || 3000;
 
+var OpenTok = require('opentok');
+var openTok = new OpenTok(config.openTok.key, config.openTok.secret);
+
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
@@ -32,7 +35,7 @@ fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
 require('./config/io')(io);
 
 // Bootstrap application settings
-require('./config/express')(app, io);
+require('./config/express')(app, {io: io, openTok: openTok});
 
 // Bootstrap routes
 require('./config/routes')(app);

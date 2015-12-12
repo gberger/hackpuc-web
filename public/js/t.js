@@ -1,5 +1,22 @@
 "use strict";
 
+if (OT.checkSystemRequirements() == 1) {
+  var session = OT.initSession(apiKey, sessionId);
+  session.on("streamCreated", function (event) {
+    console.log("New stream in the session: " + event.stream.streamId);
+    session.subscribe(event.stream, "tok", { subscribeToAudio: true, subscribeToVideo: false });
+  });
+
+  session.connect(token, function(err) {
+    if (err) console.log(err);
+  })
+
+} else {
+  console.log("No WebRTC");
+  // The client does not support WebRTC.
+  // You can display your own message.
+}
+
 var myLatlng = new google.maps.LatLng(-22.97982535792792, -43.23314334269914);
 var mapOptions = {
   zoom: 13,

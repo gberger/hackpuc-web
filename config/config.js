@@ -11,7 +11,16 @@ var test = require('./env/test');
 var production = require('./env/production');
 
 var defaults = {
-  root: path.normalize(__dirname + '/..')
+  root: path.normalize(__dirname + '/..'),
+  twilio: {
+    sid: process.env.TWILIO_SID,
+    secret: process.env.TWILIO_SECRET,
+    number: "+1 551-224-0210"
+  },
+  openTok: {
+    key: process.env.OPENTOK_KEY,
+    secret: process.env.OPENTOK_SECRET
+  }
 };
 
 /**

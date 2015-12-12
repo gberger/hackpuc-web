@@ -64,27 +64,40 @@ exports.view = function(req, res, next) {
 
 exports.fire = function(req, res, next) {
   var alert = req.alert;
-  var firing = new Firing({
-    alert: alert
+  var openTok = req.openTok;
+
+  openTok.createSession({mediaMode:'routed', archiveMode:'always'}, function(err, session) {
+    if (err) console.log(err);
+
+    var firing = new Firing({
+      alert: alert,
+      openTokSessionId: session.sessionId
+    });
+
+    firing.save(function(err, firing) {
+      if (err) {
+        return res.json(500, {
+          message: "Error firing alert",
+          error: err
+        })
+      }
+
+      var numbers = _.map(alert.contacts, (c) => c.number);
+      var message = alert.message + " " + firing.getUrl();
+      sms.send(numbers, message);
+
+      return res.json({
+        message: 'fired',
+        firing: firing,
+        openTok: {
+          sessionId: session.sessionId,
+          token: openTok.generateToken(session.sessionId, { role: 'publisher' })
+        }
+      });
+    })
   });
 
-  firing.save(function(err, firing) {
-    if (err) {
-      return res.json(500, {
-        message: "Error firing alert",
-        error: err
-      })
-    }
 
-    var numbers = _.map(alert.contacts, (c) => c.number);
-    var message = alert.message + " " + firing.getUrl();
-    sms.send(numbers, message);
-
-    return res.json({
-      message: 'fired',
-      firing: firing
-    });
-  })
 };
 
 exports.updateStatus = function(req, res, next) {
