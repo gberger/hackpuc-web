@@ -1,14 +1,8 @@
 "use strict";
-/*!
- * Module dependencies
- */
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-/**
- * User schema
- */
 
 var AlertSchema = new Schema({
   name: { type: String, required: true },
@@ -22,31 +16,15 @@ var AlertSchema = new Schema({
 });
 
 
-/**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
-
-/**
- * Methods
- */
 
 AlertSchema.method({
 
 });
 
-/**
- * Statics
- */
 
 AlertSchema.static({
 
 });
 
-/**
- * Register
- */
 
 mongoose.model('Alert', AlertSchema);

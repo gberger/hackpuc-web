@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var mongoose = require('mongoose');
 var Alert = mongoose.model('Alert');
+var Firing = mongoose.model('Firing');
 var sms = require('../services/sms');
 
 exports.loadAlert = function(req, res, next) {
@@ -46,6 +47,24 @@ exports.view = function(req, res, next) {
 
 exports.fire = function(req, res, next) {
   var alert = req.alert;
-  var numbers = _.map(alert.contacts, (c) => c.number);
-  sms.send(numbers, alert.message);
+  var firing = new Firing({
+    alert: alert
+  });
+
+  firing.save(function(err, firing) {
+    if (err) {
+      return res.json(500, {
+        message: "Error firing alert",
+        error: err
+      })
+    }
+
+    var numbers = _.map(alert.contacts, (c) => c.number);
+    sms.send(numbers, alert.message);
+
+    return res.json({
+      message: 'fired',
+      firing: firing
+    });
+  })
 };
