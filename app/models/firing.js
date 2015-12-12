@@ -3,6 +3,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var config = require('../../config/config');
+
 
 var FiringSchema = new Schema({
   alert: {
@@ -17,7 +19,9 @@ var FiringSchema = new Schema({
 
 
 FiringSchema.method({
-
+  getUrl: function() {
+    return config.baseUrl + "/t/" + this._id;
+  }
 });
 
 

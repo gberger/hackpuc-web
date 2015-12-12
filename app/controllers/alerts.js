@@ -77,7 +77,8 @@ exports.fire = function(req, res, next) {
     }
 
     var numbers = _.map(alert.contacts, (c) => c.number);
-    sms.send(numbers, alert.message);
+    var message = alert.message + " " + firing.getUrl();
+    sms.send(numbers, message);
 
     return res.json({
       message: 'fired',
