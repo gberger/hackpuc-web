@@ -1,18 +1,15 @@
-
-/**
- * Module dependencies.
- */
+'use strict';
 
 var mongoose = require('mongoose');
-var home = require('home');
+var alerts = require('../app/controllers/alerts');
 
-/**
- * Expose
- */
 
-module.exports = function (app, passport) {
+module.exports = function (app) {
 
-  app.get('/', home.index);
+  app.post('/alerts', alerts.create);
+  app.get('/alerts/:id', alerts.view);
+  app.post('/alerts/:id/fire', alerts.fire);
+
 
   /**
    * Error handling

@@ -1,14 +1,10 @@
-
-/**
- * Module dependencies
- */
+'use strict';
 
 require('dotenv').load();
 var fs = require('fs');
 var express = require('express');
 var mongoose = require('mongoose');
-var passport = require('passport');
-var config = require('config');
+var config = require('./config/config');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -28,14 +24,11 @@ fs.readdirSync(__dirname + '/app/models').forEach(function (file) {
   if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
 });
 
-// Bootstrap passport config
-require('./config/passport')(passport, config);
-
 // Bootstrap application settings
-require('./config/express')(app, passport);
+require('./config/express')(app);
 
 // Bootstrap routes
-require('./config/routes')(app, passport);
+require('./config/routes')(app);
 
 app.listen(port);
 console.log('Express app started on port ' + port);
