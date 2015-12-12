@@ -17,6 +17,7 @@ module.exports = {
   },
   twilio: {
     sid: process.env.TWILIO_SID,
-    secret: process.env.TWILIO_SECRET
+    secret: process.env.TWILIO_SECRET,
+    number: "+1 551-224-0210"
   }
 };
