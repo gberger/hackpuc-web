@@ -86,6 +86,15 @@ exports.fire = function(req, res, next) {
       var message = alert.message + " " + firing.getUrl();
       sms.send(numbers, message);
 
+      new Status({
+        firing: firing,
+        longitude: req.body.status.longitude,
+        latitude: req.body.status.latitude,
+        firstStatus: true
+      }).save(function(err, status) {
+        if (err) console.log(err);
+      });
+
       return res.json({
         message: 'fired',
         firing: firing,

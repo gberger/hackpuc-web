@@ -1,0 +1,14 @@
+extends layouts/default.jade
+
+block main
+
+  script.
+    statuses=!{JSON.stringify(statuses)};
+
+  #map
+
+block scripts
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxgWt8pEgJ-Eiwj0_PnYEOngQstCMHr9E&libraries=visualization&sensor=true_or_false")
+  script(src="https://static.opentok.com/v2/js/opentok.min.js")
+  script(src="/socket.io/socket.io.js")
+  script(src="/js/heatmap.js")
