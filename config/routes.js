@@ -8,7 +8,7 @@ module.exports = function (app) {
   app.post('/alerts', alerts.create);
   app.get('/alerts/:id', alerts.loadAlert, alerts.view);
   app.post('/alerts/:id/fire', alerts.loadAlert, alerts.fire);
-  app.post('/alerts/:id/status', alerts.loadAlert, alerts.updateStatus);
+  app.post('/alerts/:id/fire/:firingId/status', alerts.loadFiring, alerts.updateStatus);
 
 
   /**
