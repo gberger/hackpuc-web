@@ -1,9 +1,12 @@
 'use strict';
 
+var tracking = require('../app/controllers/tracking');
 var alerts = require('../app/controllers/alerts');
 
 
 module.exports = function (app) {
+
+  app.get('/t/:id', tracking.trackingPage);
 
   app.post('/alerts', alerts.create);
   app.get('/alerts/:id', alerts.loadAlert, alerts.view);
