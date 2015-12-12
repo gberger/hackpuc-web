@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost/your_project_test',
+  db: 'mongodb://localhost/hackpuc-test',
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
@@ -15,14 +15,8 @@ module.exports = {
       'user_friends'
     ]
   },
-  google: {
-    clientID: 'APP_ID',
-    clientSecret: 'SECRET',
-    callbackURL: 'http://localhost:3000/auth/google/callback',
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.google.com/m8/feeds',
-    ]
+  twilio: {
+    sid: process.env.TWILIO_SID,
+    secret: process.env.TWILIO_SECRET
   }
 };

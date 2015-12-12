@@ -3,6 +3,7 @@
  * Module dependencies
  */
 
+require('dotenv').load();
 var fs = require('fs');
 var express = require('express');
 var mongoose = require('mongoose');
