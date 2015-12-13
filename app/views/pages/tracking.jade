@@ -3,7 +3,7 @@ extends ../layouts/default
 block main
 
   script.
-    var trackingId = "#{trackingId}";
+    var roomName = "#{sh}";
     var apiKey = "#{process.env.OPENTOK_KEY}"
     var sessionId = "#{openTok.sessionId}";
     var token = "#{openTok.token}";
@@ -25,6 +25,7 @@ block main
           span#last-update-time
         h2
           span#location
+  #tok
 
 
 

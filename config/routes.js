@@ -6,7 +6,7 @@ var api = require('../app/controllers/api');
 
 module.exports = function (app) {
 
-  app.get('/t/:id', pages.trackingPage);
+  app.get('/t/:sh', pages.trackingPage);
   app.get('/heatmap', pages.heatmapPage);
 
   app.post('/alerts', api.createAlert);

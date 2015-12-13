@@ -1,5 +1,6 @@
 "use strict";
 
+var unique = require("shorthash").unique;
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -16,13 +17,14 @@ var FiringSchema = new Schema({
     default: Date.now
   },
   openTokSessionId: { type: String },
-  isOk: { type: Boolean, default: false }
+  isOk: { type: Boolean, default: false },
+  sh: { type: String }
 });
 
 
 FiringSchema.method({
   getUrl: function() {
-    return config.baseUrl + "/t/" + this._id;
+    return config.baseUrl + "/t/" + this.sh;
   }
 });
 
@@ -32,4 +34,11 @@ FiringSchema.static({
 });
 
 
+FiringSchema.pre('save', function(next) {
+  this.sh = unique(this._id.toString());
+  next();
+});
+
+
 mongoose.model('Firing', FiringSchema);
+

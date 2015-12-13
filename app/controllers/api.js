@@ -76,6 +76,7 @@ exports.fireAlert = function(req, res, next) {
 
     firing.save(function(err, firing) {
       if (err) {
+        console.log(err);
         return res.json(500, {
           message: "Error firing alert",
           error: err
@@ -121,7 +122,7 @@ exports.updateFiringStatus = function(req, res, next) {
     if (err) {
       return res.sendStatus(500)
     }
-    req.io.in(firing._id).emit('status', status);
+    req.io.in(firing.sh).emit('status', status);
     return res.sendStatus(200);
   });
 };
@@ -140,7 +141,7 @@ exports.signalFirerOk = function(req, res, next) {
       return res.sendStatus(500)
     }
 
-    req.io.in(firing._id).emit('status', status);
+    req.io.in(firing.sh).emit('status', status);
 
     firing.isOk = true;
     firing.save(function(err, firing) {

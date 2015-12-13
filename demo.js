@@ -4,6 +4,7 @@ var request = require('request-promise');
 
 var baseUrl = 'http://localhost:3000';
 var coords = require('./demo-coords.json');
+var childProc = require('child_process');
 
 
 var alertId, firingId;
@@ -43,6 +44,10 @@ request({
   });
 }).then(function(body) {
   firingId = body.firing._id;
+  console.log("Alerta disparado co id: " + firingId);
+
+  childProc.exec('open -a "Google Chrome" http://localhost:3000/t/' + body.firing.sh);
+
   var interval = 1200;
 
   for (var i = 1; i < coords.length; i++) {

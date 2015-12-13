@@ -144,4 +144,4 @@ socket.on('status', function(status) {
   updatePath(status);
   updateMarkers(status);
 });
-socket.emit('subscribe', { room: trackingId });
+socket.emit('subscribe', { room: roomName });
