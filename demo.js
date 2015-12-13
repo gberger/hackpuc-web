@@ -2,7 +2,7 @@
 
 var request = require('request-promise');
 
-var baseUrl = 'http://localhost:3000';
+var baseUrl = 'http://hackpuc-feather.herokuapp.com';
 var coords = require('./demo-coords.json');
 var childProc = require('child_process');
 
