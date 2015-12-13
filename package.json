@@ -42,8 +42,9 @@
     "winston": "1.0.1"
   },
   "devDependencies": {
-    "nodemon": "latest",
     "mocha": "latest",
+    "nodemon": "latest",
+    "request-promise": "^1.0.2",
     "should": "latest",
     "supertest": "latest"
   },
