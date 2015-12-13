@@ -9,7 +9,19 @@ block main
     token="#{openTok.token}";
 
   #map
-  #tok
+  html
+    body
+      section.card
+        h1#since.danger
+          span#since-text Em perigo desde&nbsp;
+          span#since-time
+        h2
+          span#last-update Última atualização às&nbsp;
+          span#last-update-time
+        h2
+          span#location
+
+
 
 block scripts
   script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxgWt8pEgJ-Eiwj0_PnYEOngQstCMHr9E")
