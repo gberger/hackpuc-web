@@ -20,6 +20,7 @@ body {
 
 .card {
   max-width: 400px;
+  position: relative;
 
   padding:1.5rem;
   box-shadow:0 1px 2px #aaa;
@@ -29,6 +30,26 @@ body {
   user-select:none;
   animation:fly-in-from-left .5s 1s ease both;
   transform-origin:top left;
+}
+
+#volume-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 22px;
+  height: 22px;
+  color: gray;
+  fill: currentColor;
+  z-index: 1;
+}
+
+#volume-indicator {
+  position: absolute;
+  top: 27px;
+  right: 27px;
+  background: rgba(230, 230, 230, 0.5);
+  transition-property: top, right, width, height, border-radius;
+  transition-duration: 0.1s;
 }
 
 @keyframes fly-in-from-left {

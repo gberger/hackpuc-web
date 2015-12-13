@@ -7,7 +7,24 @@ if (OT.checkSystemRequirements() == 1) {
   var session = OT.initSession(apiKey, sessionId);
   session.on("streamCreated", function (event) {
     console.log("New stream in the session: " + event.stream.streamId);
-    session.subscribe(event.stream, "tok", { subscribeToAudio: true, subscribeToVideo: false });
+    var subscriber = session.subscribe(event.stream, "tok", {
+      subscribeToAudio: true,
+      subscribeToVideo: false,
+      showControls: false
+    });
+
+    var movingAvg = null;
+    subscriber.on('audioLevelUpdated', function(event) {
+      if (movingAvg === null || movingAvg <= event.audioLevel) {
+        movingAvg = event.audioLevel;
+      } else {
+        movingAvg = 0.7 * movingAvg + 0.3 * event.audioLevel;
+      }
+      var logLevel = (Math.log(movingAvg) / Math.LN10) / 1.5 + 1;
+      var level = Math.min(Math.max(logLevel, 0), 1);
+
+      updateAudioLevel(level);
+    });
   });
 
   session.connect(token, function(err) {
@@ -58,6 +75,18 @@ socket.on('status', function(status) {
   updateMarkers(status);
 });
 socket.emit('subscribe', { room: trackingId });
+
+var updateAudioLevel = function(level) {
+  var px = level * 50;
+  var indicator = document.getElementById('volume-indicator');
+  indicator.style.top = 27 - px/2 + 'px';
+  indicator.style.right = 27 - px/2 + 'px';
+  indicator.style.width = px + 'px';
+  indicator.style.height = px + 'px';
+  indicator.style.borderRadius = px/2 + 'px';
+};
+setTimeout(function() { updateAudioLevel(1.0) }, 100*(0));
+setTimeout(function() { updateAudioLevel(0.0) }, 100);
 
 var updateCard = function(status, len) {
   if (status.isFirst || len == 1) {
