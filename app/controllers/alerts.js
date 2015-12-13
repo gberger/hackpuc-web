@@ -112,7 +112,8 @@ exports.updateStatus = function(req, res, next) {
   var status = new Status({
     firing: firing,
     longitude: req.body.status.longitude,
-    latitude: req.body.status.latitude
+    latitude: req.body.status.latitude,
+    isOk: req.body.status.isOk
   });
 
   status.save(function(err, status) {
@@ -138,7 +139,7 @@ exports.signalOk = function(req, res, next) {
     if (err) {
       return res.sendStatus(500)
     }
-    
+
     req.io.in(firing._id).emit('status', status);
 
     firing.isOk = true;

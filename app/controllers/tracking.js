@@ -20,7 +20,6 @@ exports.trackingPage = function(req, res) {
 exports.heatmapPage = function(req, res) {
   Status.find({ isFirstStatus: true }, function(err, statuses) {
     if (err) console.log(err);
-    console.log(statuses);
 
     res.render('heatmap', {
       statuses: statuses

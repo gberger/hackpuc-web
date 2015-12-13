@@ -17,7 +17,7 @@ exports.send = function(numbers, body, cb) {
         from: config.twilio.number
       }, function(err, message) {
         if (err) console.log(err.message);
-        console.log(message);
+        console.log('SMS ' + message.from + ' -> ' + message.to);
       }
     );
   }
