@@ -111,7 +111,6 @@ var updateMarkers = function(status) {
   } else {
     finalMarker.setPosition(status.latLng);
   }
-  map.setCenter(status.latLng);
 };
 
 /*
@@ -128,6 +127,7 @@ for (i = 0; i < statuses.length; i++) {
 }
 document.getElementById('since-time').innerText = statuses[0].timeString;
 updateCard(statuses[statuses.length-1], 0);
+map.setCenter(statuses[statuses.length-1].latLng);
 
 
 /*

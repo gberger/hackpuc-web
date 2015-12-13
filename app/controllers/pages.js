@@ -8,7 +8,7 @@ exports.trackingPage = function(req, res) {
   Firing.findOne({sh: req.params.sh}, function(err, firing) {
     if (err) next();
     Status.find({firing: firing}).sort({timestamp: 'ascending'}).exec(function(err, statuses) {
-      if (err) console.log(err);
+      if (err) next();
       res.render('pages/tracking', {
         sh: req.params.sh,
         openTok: {
@@ -23,7 +23,7 @@ exports.trackingPage = function(req, res) {
 
 exports.heatmapPage = function(req, res) {
   Status.find({ isFirstStatus: true }, function(err, statuses) {
-    if (err) console.log(err);
+    if (err) next();
 
     res.render('pages/heatmap', {
       statuses: statuses
