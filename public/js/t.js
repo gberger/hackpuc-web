@@ -37,6 +37,9 @@ if (OT.checkSystemRequirements() == 1) {
   // You can display your own message.
 }
 
+setTimeout(function() { updateAudioLevel(1.0) }, 100*(0));
+setTimeout(function() { updateAudioLevel(0.0) }, 100);
+
 
 /*
  * INITIALIZE MAP
@@ -58,23 +61,9 @@ var poly = new google.maps.Polyline({
 var geocoder = new google.maps.Geocoder();
 var initialMarker, finalMarker;
 
-
 /*
- * INITIALIZE SOCKET.IO
+ * UPDATE FNs
  */
-var statuses = [];
-var socket = io.connect();
-socket.on('status', function(status) {
-  statuses.push(status);
-  status.date = new Date(status.timestamp);
-  status.timeString = status.date.toTimeString().split(' ')[0];
-  status.latLng = new google.maps.LatLng(status.latitude, status.longitude);
-
-  updateCard(status, statuses.length);
-  updatePath(status);
-  updateMarkers(status);
-});
-socket.emit('subscribe', { room: trackingId });
 
 var updateAudioLevel = function(level) {
   var px = level * 50;
@@ -85,20 +74,17 @@ var updateAudioLevel = function(level) {
   indicator.style.height = px + 'px';
   indicator.style.borderRadius = px/2 + 'px';
 };
-setTimeout(function() { updateAudioLevel(1.0) }, 100*(0));
-setTimeout(function() { updateAudioLevel(0.0) }, 100);
 
 var updateCard = function(status, len) {
-  if (status.isFirst || len == 1) {
-    document.getElementById('since-time').innerText = status.timeString;
-  } else if (status.isOk) {
+  if (status.isOk) {
     document.getElementById('since').className = 'ok';
     document.getElementById('since-text').innerText = 'Em segurança desde ';
     document.getElementById('since-time').innerText = status.timeString;
   }
   document.getElementById('last-update-time').innerText = status.timeString;
 
-  if (len % 10 == 0){
+  // Rate limiting
+  if (len % 2 == 0){
     geocoder.geocode({'location': status.latLng}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         document.getElementById('location').innerText = results[0].formatted_address;
@@ -127,3 +113,35 @@ var updateMarkers = function(status) {
   }
   map.setCenter(status.latLng);
 };
+
+/*
+ * CREATE PATH & CARD
+ */
+var i;
+for (i = 0; i < statuses.length; i++) {
+  var st = statuses[i];
+  st.date = new Date(st.timestamp);
+  st.timeString = st.date.toTimeString().split(' ')[0];
+  st.latLng = new google.maps.LatLng(st.latitude, st.longitude);
+  updatePath(st);
+  updateMarkers(st);
+}
+document.getElementById('since-time').innerText = statuses[0].timeString;
+updateCard(statuses[statuses.length-1], 0);
+
+
+/*
+ * INITIALIZE SOCKET.IO
+ */
+var socket = io.connect();
+socket.on('status', function(status) {
+  statuses.push(status);
+  status.date = new Date(status.timestamp);
+  status.timeString = status.date.toTimeString().split(' ')[0];
+  status.latLng = new google.maps.LatLng(status.latitude, status.longitude);
+
+  updateCard(status, statuses.length);
+  updatePath(status);
+  updateMarkers(status);
+});
+socket.emit('subscribe', { room: trackingId });

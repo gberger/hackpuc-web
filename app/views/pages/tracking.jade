@@ -3,10 +3,11 @@ extends ../layouts/default
 block main
 
   script.
-    trackingId="#{trackingId}";
-    apiKey="#{process.env.OPENTOK_KEY}"
-    sessionId="#{openTok.sessionId}";
-    token="#{openTok.token}";
+    var trackingId = "#{trackingId}";
+    var apiKey = "#{process.env.OPENTOK_KEY}"
+    var sessionId = "#{openTok.sessionId}";
+    var token = "#{openTok.token}";
+    var statuses = !{JSON.stringify(statuses)};
 
   #map
   html
