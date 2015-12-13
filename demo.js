@@ -44,14 +44,15 @@ request({
   });
 }).then(function(body) {
   firingId = body.firing._id;
-  console.log("Alerta disparado co id: " + firingId);
+  console.log("Alerta disparado com id: " + firingId);
 
-  childProc.exec('open -a "Google Chrome" http://localhost:3000/t/' + body.firing.sh);
+  childProc.exec('open -a "Google Chrome" ' + baseUrl + '/t/' + body.firing.sh);
 
   var interval = 1200;
 
   for (var i = 1; i < coords.length; i++) {
     setTimeout(function (j) {
+      console.log("Enviando coordenadas: ", coords[j]);
       request({
         uri: '/alerts/' + alertId + '/fire/' + firingId + (j == coords.length - 1 ? '/ok' : '/status'),
         baseUrl: baseUrl,
