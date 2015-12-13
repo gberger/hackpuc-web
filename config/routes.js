@@ -1,19 +1,19 @@
 'use strict';
 
-var tracking = require('../app/controllers/tracking');
-var alerts = require('../app/controllers/alerts');
+var pages = require('../app/controllers/pages');
+var api = require('../app/controllers/api');
 
 
 module.exports = function (app) {
 
-  app.get('/t/:id', tracking.trackingPage);
-  app.get('/heatmap', tracking.heatmapPage);
+  app.get('/t/:id', pages.trackingPage);
+  app.get('/heatmap', pages.heatmapPage);
 
-  app.post('/alerts', alerts.create);
-  app.get('/alerts/:id', alerts.loadAlert, alerts.view);
-  app.post('/alerts/:id/fire', alerts.loadAlert, alerts.fire);
-  app.post('/alerts/:id/fire/:firingId/status', alerts.loadFiring, alerts.updateStatus);
-  app.post('/alerts/:id/fire/:firingId/ok', alerts.loadFiring, alerts.signalOk);
+  app.post('/alerts', api.createAlert);
+  app.get('/alerts/:id', api.loadAlert, api.viewAlert);
+  app.post('/alerts/:id/fire', api.loadAlert, api.fireAlert);
+  app.post('/alerts/:id/fire/:firingId/status', api.loadFiring, api.updateFiringStatus);
+  app.post('/alerts/:id/fire/:firingId/ok', api.loadFiring, api.signalFirerOk);
 
 
   /**

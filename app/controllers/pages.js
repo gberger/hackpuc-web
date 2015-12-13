@@ -7,7 +7,7 @@ var Status = mongoose.model('Status');
 exports.trackingPage = function(req, res) {
   Firing.findById(req.params.id, function(err, firing) {
     if (err) next();
-    res.render('tracking', {
+    res.render('pages/tracking', {
       trackingId: req.params.id,
       openTok: {
         sessionId: firing.openTokSessionId,
@@ -21,7 +21,7 @@ exports.heatmapPage = function(req, res) {
   Status.find({ isFirstStatus: true }, function(err, statuses) {
     if (err) console.log(err);
 
-    res.render('heatmap', {
+    res.render('pages/heatmap', {
       statuses: statuses
     });
   });

@@ -37,7 +37,7 @@ exports.loadFiring = function(req, res, next) {
 
 
 
-exports.create = function(req, res, next) {
+exports.createAlert = function(req, res, next) {
   var alert = new Alert(req.body.alert);
 
   alert.save(function(err, alert) {
@@ -55,14 +55,14 @@ exports.create = function(req, res, next) {
   });
 };
 
-exports.view = function(req, res, next) {
+exports.viewAlert = function(req, res, next) {
   return res.json({
     alert: req.alert
   })
 };
 
 
-exports.fire = function(req, res, next) {
+exports.fireAlert = function(req, res, next) {
   var alert = req.alert;
   var openTok = req.openTok;
 
@@ -90,7 +90,7 @@ exports.fire = function(req, res, next) {
         firing: firing,
         longitude: req.body.status.longitude,
         latitude: req.body.status.latitude,
-        firstStatus: true
+        isFirstStatus: true
       }).save(function(err, status) {
         if (err) console.log(err);
       });
@@ -107,7 +107,7 @@ exports.fire = function(req, res, next) {
   });
 };
 
-exports.updateStatus = function(req, res, next) {
+exports.updateFiringStatus = function(req, res, next) {
   var firing = req.firing;
   var status = new Status({
     firing: firing,
@@ -126,7 +126,7 @@ exports.updateStatus = function(req, res, next) {
   });
 };
 
-exports.signalOk = function(req, res, next) {
+exports.signalFirerOk = function(req, res, next) {
   var firing = req.firing;
   var status = new Status({
     firing: firing,
