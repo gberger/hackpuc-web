@@ -14,7 +14,6 @@ module.exports = function(io) {
 
         Status.find({firing: firing}).sort({timestamp: 'ascending'}).exec(function(err, statuses) {
           if (err) console.log(err);
-          console.log(statuses);
           for(var status of statuses) {
             socket.emit('status', status)
           }
