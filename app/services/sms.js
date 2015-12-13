@@ -11,7 +11,7 @@ exports.send = function(numbers, body, cb) {
   }
 
   for (var number of numbers) {
-    client.messages.createAlert({
+    client.messages.create({
         body: body,
         to: number,
         from: config.twilio.number
