@@ -15,7 +15,8 @@ var FiringSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  openTokSessionId: { type: String }
+  openTokSessionId: { type: String },
+  isOk: { type: Boolean, default: false }
 });
 
 

@@ -15,7 +15,8 @@ var StatusSchema = new Schema({
   },
   longitude: { type: Number },
   latitude: { type: Number },
-  isFirstStatus: { type: Boolean, default: false }
+  isFirstStatus: { type: Boolean, default: false },
+  isOk: { type: Boolean, default: false }
 });
 
 

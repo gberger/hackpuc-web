@@ -13,6 +13,7 @@ module.exports = function (app) {
   app.get('/alerts/:id', alerts.loadAlert, alerts.view);
   app.post('/alerts/:id/fire', alerts.loadAlert, alerts.fire);
   app.post('/alerts/:id/fire/:firingId/status', alerts.loadFiring, alerts.updateStatus);
+  app.post('/alerts/:id/fire/:firingId/ok', alerts.loadFiring, alerts.signalOk);
 
 
   /**
