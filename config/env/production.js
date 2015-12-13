@@ -5,6 +5,7 @@
 
 module.exports = {
   db: 'mongodb://localhost/hackpuc-production',
+  baseUrl: process.env.BASE_URL,
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
